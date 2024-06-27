@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Recipe Search App</string>
+    <string name="popular_recipes">Popular Recipes</string>
+    <string name="all_recipes">All Recipes</string>
+    <string name="favourite_recipes">Favouroite Recipes</string>
+    <string name="personalAssistant">Personal Assistant</string>
+</resources>
