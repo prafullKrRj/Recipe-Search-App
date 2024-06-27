@@ -7,6 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,6 +25,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -34,11 +38,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.prafull.recipesearchapp.BuildConfig
 import com.prafull.recipesearchapp.MainScreens
 import com.prafull.recipesearchapp.R
 import com.prafull.recipesearchapp.navigateAndPopBackStack
 import com.prafull.recipesearchapp.ui.theme.orange
+import com.prafull.recipesearchapp.utils.Const
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -46,7 +50,7 @@ fun AuthScreen(navController: NavController, mAuth: FirebaseAuth) {
     val authViewModel: AuthViewModel = getViewModel()
     val context = LocalContext.current
     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestIdToken(BuildConfig.WEB_CLIENT_ID)
+        .requestIdToken(Const.WEB_ID)
         .requestEmail().build()
     val googleSignInClient = getClient(context, gso)
     val signInLauncher =
@@ -85,7 +89,6 @@ fun AuthScreen(navController: NavController, mAuth: FirebaseAuth) {
     Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(8.dp)
     ) {
         Image(
                 painter = painterResource(id = R.drawable.authback),
@@ -93,15 +96,46 @@ fun AuthScreen(navController: NavController, mAuth: FirebaseAuth) {
                 contentScale = ContentScale.FillHeight,
                 modifier = Modifier.fillMaxSize()
         )
-        Column(Modifier.align(Alignment.BottomStart), verticalArrangement = Arrangement.Bottom) {
+        Column(
+                Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(16.dp), verticalArrangement = Arrangement.Bottom
+        ) {
             Text(
                     text = "Welcome to",
                     fontStyle = FontStyle.Italic,
-                    fontSize = 32.sp,
+                    fontSize = 45.sp,
                     color = Color.White
             )
             Spacer(modifier = Modifier.height(4.dp))
-            Text("Recipe", fontSize = 34.sp, fontWeight = FontWeight.Bold, color = Color.White)
+            Text(
+                    text = AnnotatedString(
+                            text = "Rec",
+                            spanStyle = SpanStyle(
+                                    fontWeight = FontWeight.Bold,
+                            )
+                    ) + AnnotatedString(
+                            text = "ii"
+                    ) + AnnotatedString(
+                            text = "p",
+                            spanStyle = SpanStyle(
+                                    fontWeight = FontWeight.Bold,
+                            )
+                    ) + AnnotatedString(
+                            text = "ii"
+                    ) + AnnotatedString(
+                            text = "e",
+                            spanStyle = SpanStyle(
+                                    fontWeight = FontWeight.Bold,
+                            )
+
+                    ),
+                    fontSize = 50.sp,
+                    color = Color.White,
+                    fontStyle = FontStyle.Italic
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = "Please Sign In to Continue", color = Color.White)
             Spacer(modifier = Modifier.height(8.dp))
             Button(
                     colors = ButtonDefaults.buttonColors(
@@ -117,7 +151,15 @@ fun AuthScreen(navController: NavController, mAuth: FirebaseAuth) {
                         .fillMaxWidth()
                         .padding(8.dp)
             ) {
-                Text(text = "Continue with Google", modifier = Modifier.padding(8.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(4.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                            painter = painterResource(id = R.drawable.img),
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.height(28.dp)
+                    )
+                    Text(text = "Continue with Google", modifier = Modifier.padding(8.dp))
+                }
             }
         }
     }

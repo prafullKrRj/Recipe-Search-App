@@ -78,6 +78,9 @@ fun SearchScreen(
     )
     BackHandler {
         scope.launch {
+            if (sheetState.currentValue == SheetValue.Hidden && !searchViewModel.showSheet) {
+                navController.goBackStack()
+            }
             searchViewModel.showSheet = false
             sheetState.hide()
         }
