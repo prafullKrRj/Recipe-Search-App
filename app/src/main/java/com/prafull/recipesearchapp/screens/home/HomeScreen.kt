@@ -110,7 +110,7 @@ fun HomeScreen(
         }) { recipe ->
             FullWidthRecipeCard(recipe) {
                 recipe.id.let { id ->
-                    navController.navigate(Routes.RecipeDetailsInternet(id.toInt()))
+                    navController.navigate(Routes.RecipeDetailsInternet(id))
                 }
             }
         }
@@ -158,7 +158,7 @@ fun Loader(modifier: Modifier = Modifier) {
 fun FullWidthRecipeCard(recipe: RecipeInfo, onClick: () -> Unit = {}) {
     val context = LocalContext.current
     OutlinedCard(
-            onClick = { /*TODO*/ },
+            onClick = onClick,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(150.dp)
